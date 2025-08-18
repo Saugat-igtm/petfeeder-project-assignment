@@ -1,4 +1,14 @@
-# petfeeder-project-assignment
+#  Pet Feeder Project
 
+##  Overview
+The **Pet Feeder Project** is an automated system designed to dispense food for pets at scheduled times or on-demand.  
+It combines **hardware and software components** to ensure pets are fed consistently, even when the owner is away.  
 
-In this step i have followed the five problem solving steps which are problem definations, describing the data and organising editing in proper manner. Therafter, we have mapped a solution plan with a flowchart of the automated pet feeder system. Moreover, we have implemented it in a word coding with proper testing and refinmenets including truth table.
+---
+
+##  Features
+-  Scheduled feeding at predefined times  
+-  Portion control for each meal  
+-  Manual feeding option (on-demand)  
+-  Notifications for low food/missed feedings (if implemented)  
+-  Modular code design for easy extension  
