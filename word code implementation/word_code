@@ -1,0 +1,53 @@
+BEGIN
+
+     //Inputs
+    Feeding time <- [07:00, 15:00] , //Feeding schedule (2–3 times a day)
+    FoodLevelMonitoring <- {Empty, HalfEmpty, Full}   // Enum input
+    BowlWeight <- Decimal (0 – 700 gm, accuracy ±6 gm)
+
+    // Outputs
+    ServoMotorDisplay <- Boolean      // ON/OFF for dispensing
+    Alarm <- Boolean                  // SMS / LED notification system
+
+
+    WHILE TRUE DO
+
+        CurrentTime<- GetCurrentTime()
+
+        // Step 1:  In this step we will check feeding schedule
+        IF CurrentTime = FeedingTime THEN
+           
+            // Step 2:  In this step we will check bowl weight
+            Check BowlWeight
+
+            IF BowlWeight <= 0 THEN
+                // Step 3: Check bin food level
+                IF FoodLevelMonitoring = Empty THEN
+                    SendNotification("Bin Empty")
+                    STOP current feeding cycle
+                ELSE
+                    // Step 4: we will dispense food in this step
+                    ServoMotorDisplay <- ON
+                    WAIT 2 seconds   // Dispense 300 gm
+                    ServoMotorDisplay <-OFF
+
+                    // Step 5: Verify for dispensing sucess
+                    NewBowlWeight <- Check BowlWeight
+                    IF NewBowlWeight <= BowlWeight THEN
+                        SendNotification("Dispense Failure")
+                    ELSE
+                        // Step 6: let pet to eat first 
+                        WAIT 30 minutes
+                        FinalBowlWeight <- Check BowlWeight
+
+                        IF FinalBowlWeight >= NewBowlWeight THEN
+                            SendNotification("Pet May Not Have Eaten")
+                        ENDIF
+                    ENDIF
+                ENDIF
+            ENDIF
+        ENDIF
+
+    ENDWHILE
+
+END
